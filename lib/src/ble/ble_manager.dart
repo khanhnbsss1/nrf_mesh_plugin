@@ -143,6 +143,7 @@ abstract class BleManager<E extends BleManagerCallbacks> {
       }
       _connectedDeviceStatusListener!.cancel();
     });
+    if (Platform.isIOS) _device = discoveredDevice;
     _connectedDeviceStatusListener = _bleInstance
         .connectToDevice(
           id: discoveredDevice.id,
