@@ -268,12 +268,14 @@ abstract class BleManager<E extends BleManagerCallbacks> {
     DiscoveredService? service;
     try {
       service = await isRequiredServiceSupported(shouldCheckDoozCustomService);
+      await Future.delayed(Duration(milliseconds: 100));
     } on BleManagerException catch (e) {
       _log('the device does not have the DooZ custom BLE service $e');
       rethrow; // handled in catchError block
     } catch (e) {
       _log('caught error during discover service : $e');
     }
+    await Future.delayed(Duration(milliseconds: 100));
     if (service != null) {
       // valid mesh node
       if (!_callbacks.onServicesDiscoveredController.isClosed &&
